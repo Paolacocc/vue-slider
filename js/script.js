@@ -29,6 +29,7 @@ const { createApp } = Vue;
 createApp({
     data () {
         return {
+            autoplay: null,
             activeItem: 0,
             slides: [
                 {
@@ -56,6 +57,10 @@ createApp({
 
         }
     },
+    mounted(){
+        this.autoplay = setInterval(this.showNext, 3000)
+
+    },
     methods: {
     showNext(){
         if (this.activeItem < this.slides.length - 1) {
@@ -70,6 +75,15 @@ createApp({
         } else {
             this.activeItem = this.slides.length - 1 
         }
+    },
+    showThumb(indexShow) {
+        this.activeItem = indexShow;
+    },
+    startAutoplay(){
+        this.autoplay = setInterval(this.showNext, 3000)
+    },
+    stopAutoplay(){
+        clearInterval(this.autoplay)
     }
 }
 }).mount("#app");
